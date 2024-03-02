@@ -94,17 +94,11 @@ support.
     // (hint: try using memcpy [https://man7.org/linux/man-pages/man3/memcpy.3.html],
      // memcpy parameters --> destination, source, size
     // you may have to copy struct fields over individually, think about why?)
-     // memcpy(memory, &packet->hdrLen, sizeof(packet.hdrLen));
-     // memcpy(memory + sizeof(packet->hdrLen), &packet->checksum, sizeof(packet->checksum));
-     // memcpy(memory + sizeof(packet->hdrLen) + sizeof(packet->checksum), &packet->dataLen, sizeof(packet->dataLen));
-     // memcpy(memory + sizeof(packet->hdrLen) + sizeof(packet->checksum) + sizeof(packet->dataLen), packet->data, sizeof(packet->data));
+     memcpy(memory, &packet->hdrLen, sizeof(packet->hdrLen));
+     memcpy(memory + sizeof(packet->hdrLen), &packet->checksum, sizeof(packet->checksum));
+     memcpy(memory + sizeof(packet->hdrLen) + sizeof(packet->checksum), &packet->dataLen, sizeof(packet->dataLen));
+     memcpy(memory + sizeof(packet->hdrLen) + sizeof(packet->checksum) + sizeof(packet->dataLen), packet->data, sizeof(packet->data));
 
-     memcpy(memory, &packet->hdrLen, 1);
-     memcpy(memory + 1, &packet->checksum, packet->hdrLen);
-     memcpy(memory + 2, &packet->dataLen, 1);
-     memcpy(memory + packet->hdrLen, packet->data, packet->dataLen);
-
-     // memcpy(memory, &packet, packet.hdrLen + packet.dataLen);
     /* END STEP 3: Your packet should now be loaded into a buffer of continuous memory */
 
 

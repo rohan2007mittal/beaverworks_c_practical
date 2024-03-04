@@ -59,7 +59,7 @@ void parseInput(char* buffer, pkt_t* pkt) {
     //
     // (hint: you should use a loop here)
     pkt->checksum = 0;
-    for (int i = 0; i < BUF_SIZE; i++) {
+    for (int i = 0; i < pkt->dataLen; i++) {
         pkt->checksum ^= pkt->data[i];
     }
 
